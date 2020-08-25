@@ -11,74 +11,71 @@
     
     <StackLayout>
         <Label FontAttributes="Bold" FontSize="Large" Text="Settings" VerticalOptions="Center"/>
-        <Frame CornerRadius="10" BackgroundColor="Accent">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-
-                <Label Grid.Row="0"
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            
+            <Label Grid.Row="0"
                    Grid.Column="0"
                    Text="IP Adress: "
                    VerticalOptions="Center"
                    HorizontalOptions="End"/>
-                <Entry Grid.Row="0" 
+            <Entry Grid.Row="0" 
                    Grid.Column="1" 
                    Text="{Binding IpAddress}"
                    VerticalOptions="Center"
                    HorizontalOptions="Start"/>
-
-                <Label Grid.Row="1"
+            
+            <Label Grid.Row="1"
                    Grid.Column="0"
                    Text="IP Port: "
                    VerticalOptions="Center"
                    HorizontalOptions="End"/>
-                <Entry Grid.Row="1" 
+            <Entry Grid.Row="1" 
                    Grid.Column="1" 
                    Text="{Binding IpPort}"
                    VerticalOptions="Center"
                    HorizontalOptions="Start"/>
 
-                <Label Grid.Row="2"
+            <Label Grid.Row="2"
                    Grid.Column="0"
                    Text="Max Samples: "
                    VerticalOptions="Center"
                    HorizontalOptions="End"/>
-                <Entry Grid.Row="2" 
+            <Entry Grid.Row="2" 
                    Grid.Column="1" 
                    Text="{Binding MaxSamples}"
                    VerticalOptions="Center"
                    HorizontalOptions="Start"/>
 
-                <Label Grid.Row="3"
+            <Label Grid.Row="3"
                    Grid.Column="0"
                    Text="Time Sampling: "
                   VerticalOptions="Center"
                    HorizontalOptions="End"/>
-                <Entry Grid.Row="3" 
+            <Entry Grid.Row="3" 
                    Grid.Column="1" 
                    Text="{Binding SampleTime}"
                    VerticalOptions="Center"
                    HorizontalOptions="Start"/>
-                <Button Grid.Row="4" 
+            <Button Grid.Row="4" 
                     Grid.Column="0"
                     VerticalOptions="Center"
                     Text="Save"/>
-                <Button Grid.Row="4" 
+            <Button Grid.Row="4" 
                     Grid.Column="1" 
                     VerticalOptions="Center"
                     Text="Default"/>
-            </Grid>
-        </Frame>
-        
+        </Grid>
     </StackLayout>
     
     
