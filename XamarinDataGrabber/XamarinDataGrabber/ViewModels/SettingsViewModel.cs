@@ -12,6 +12,7 @@ namespace XamarinDataGrabber.ViewModels
         #region Fields
         string _ipAddress, _ipPort, _apiVersion;
         int _maxSamples, _sampleTime;
+        readonly string SettingsMessage = "UpdateSettings"; 
         #endregion
         #region Properties
         public string IpAddress
@@ -108,6 +109,8 @@ namespace XamarinDataGrabber.ViewModels
         {
             //TODO: Implement Saving Method
             //TOTHINK: using MessagingCenter and sending Message to MainViewModel where Http request are made???
+            MessagingCenter.Send<SettingsViewModel,string>(this, SettingsMessage,"Hi");
         }
+         
     }
 }

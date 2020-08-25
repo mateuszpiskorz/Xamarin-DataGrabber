@@ -5,6 +5,7 @@
              xmlns:vm="clr-namespace:XamarinDataGrabber.ViewModels"
              x:Class="XamarinDataGrabber.Views.MainView">
     
+    
     <local:NewView Title="Main"/>
     <local:TestView Title="Test"/>
     <local:SettingsView Title="Settings"/>

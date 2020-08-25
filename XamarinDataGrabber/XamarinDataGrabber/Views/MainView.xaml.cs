@@ -15,6 +15,7 @@ namespace XamarinDataGrabber.Views
 		public MainView ()
 		{
 			InitializeComponent ();
+            
 		}
 	}
 }
