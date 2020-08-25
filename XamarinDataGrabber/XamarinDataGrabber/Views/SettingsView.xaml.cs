@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace XamarinDataGrabber.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class MainView : TabbedPage
+	public partial class SettingsView : ContentPage
 	{
-		public MainView ()
+		public SettingsView ()
 		{
 			InitializeComponent ();
 		}

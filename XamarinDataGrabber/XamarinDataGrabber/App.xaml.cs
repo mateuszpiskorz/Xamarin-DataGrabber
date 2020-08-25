@@ -1,6 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using XamarinDataGrabber.Views;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace XamarinDataGrabber
@@ -11,7 +12,7 @@ namespace XamarinDataGrabber
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new MainView();
         }
 
         protected override void OnStart()
