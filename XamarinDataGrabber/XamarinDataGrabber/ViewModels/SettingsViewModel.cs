@@ -108,7 +108,6 @@ namespace XamarinDataGrabber.ViewModels
         private void SaveSettings()
         {
             //TODO: Implement Saving Method
-            //TOTHINK: using MessagingCenter and sending Message to MainViewModel where Http request are made???
             MessagingCenter.Send<SettingsViewModel,string>(this, SettingsMessage,"Hi");
         }
          

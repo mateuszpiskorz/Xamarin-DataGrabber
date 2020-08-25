@@ -25,5 +25,7 @@ namespace XamarinDataGrabber.Models
         }
 
         public string IpAddress { get => _ipAddress; set => _ipAddress = value; }
+
+        //TODO: Writing/Reading data to/from JSON file
     }
 }

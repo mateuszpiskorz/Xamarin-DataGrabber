@@ -6,7 +6,7 @@ namespace XamarinDataGrabber.ViewModels
 {
     class MainViewModel : BaseViewModel
     {
-        //TODO: Connection with server
+        //TODO: Connection handling with server
         //TODO: TabbedPage CurrentPage problem to disconnect from the server in case of switching to Settings tab.
         
     }
