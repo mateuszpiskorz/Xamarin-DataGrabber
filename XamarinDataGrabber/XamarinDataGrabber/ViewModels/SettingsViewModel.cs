@@ -12,7 +12,8 @@ namespace XamarinDataGrabber.ViewModels
         #region Fields
         string _ipAddress, _ipPort, _apiVersion;
         int _maxSamples, _sampleTime;
-        readonly string SettingsMessage = "UpdateSettings"; 
+        readonly string SettingsMessage = "UpdateSettings";
+        DataModel context;
         #endregion
         #region Properties
         public string IpAddress
@@ -81,34 +82,47 @@ namespace XamarinDataGrabber.ViewModels
         
         public SettingsViewModel()
         {
+            //Creating Database instance
+            context = new DataModel();
+
             //Setting initial values to fields
-            _ipAddress = DefaultConfigParams.defaultIpAdress;
-            _ipPort = DefaultConfigParams.defaultIpPort;
-            _apiVersion = DefaultConfigParams.defaultApiVersion;
-            _maxSamples = DefaultConfigParams.defaultMaxSamples;
-            _sampleTime = DefaultConfigParams.defaultSampleTime;
+            _ipAddress = context.IpAddress;
+            _ipPort = context.IpPort;
+            _apiVersion = context.ApiVersion;
+            _maxSamples = context.MaxSamples;
+            _sampleTime = context.SampleTime;
 
 
             //Creating Commands for View buttons
-            DefaultCommand = new Command(() => { this.SetDefaultSettings(); });
-            SaveCommand = new Command(() => { this.SaveSettings(); });
+            DefaultCommand = new Command(() => { this.SetDefaultSettingsButton(); });
+            SaveCommand = new Command(() => { this.SaveSettingsButton(); });
         }
 
         //Default Button method
-        private void SetDefaultSettings()
+        private void SetDefaultSettingsButton()
         {
-            IpAddress = DefaultConfigParams.defaultIpAdress;
-            IpPort = DefaultConfigParams.defaultIpPort;
-            ApiVersion = DefaultConfigParams.defaultApiVersion;
-            MaxSamples = DefaultConfigParams.defaultMaxSamples;
-            SampleTime = DefaultConfigParams.defaultSampleTime;
+            //Setting default config to datamodel
+            context.SetDefaultConfig();
+
+            IpAddress = context.IpAddress;
+            IpPort = context.IpPort;
+            ApiVersion = context.ApiVersion;
+            MaxSamples = context.MaxSamples;
+            SampleTime = context.SampleTime;
+
         }
 
         //Save Button method
-        private void SaveSettings()
+        private void SaveSettingsButton()
         {
-            //TODO: Implement Saving Method
-            MessagingCenter.Send<SettingsViewModel,string>(this, SettingsMessage,"Hi");
+            //Saving data to datamodel
+            context.IpAddress = IpAddress;
+            context.IpPort = IpPort;
+            context.ApiVersion = ApiVersion;
+            context.SampleTime = SampleTime;
+            context.MaxSamples = MaxSamples;
+
+            context.WriteConfig();
         }
          
     }

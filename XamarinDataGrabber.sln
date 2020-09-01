@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28307.1209
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamarinDataGrabber.Android", "XamarinDataGrabber\XamarinDataGrabber.Android\XamarinDataGrabber.Android.csproj", "{E9B247AD-2BB3-436C-AC27-32801ED0FEA6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamarinDataGrabber", "XamarinDataGrabber\XamarinDataGrabber\XamarinDataGrabber.csproj", "{E6A62EF4-D692-4444-A81A-069B2ACA1C29}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XamarinDataGrabber", "XamarinDataGrabber\XamarinDataGrabber\XamarinDataGrabber.csproj", "{E6A62EF4-D692-4444-A81A-069B2ACA1C29}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -70,11 +70,13 @@
             <Button Grid.Row="4" 
                     Grid.Column="0"
                     VerticalOptions="Center"
-                    Text="Save"/>
+                    Text="Save"
+                    Command="{Binding SaveCommand}"/>
             <Button Grid.Row="4" 
                     Grid.Column="1" 
                     VerticalOptions="Center"
-                    Text="Default"/>
+                    Text="Default"
+                    Command="{Binding DefaultCommand}"/>
         </Grid>
     </StackLayout>
     
