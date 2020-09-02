@@ -4,7 +4,7 @@ using System.Text;
 
 namespace XamarinDataGrabber.Models
 {
-    static class DefaultConfigParams
+    static class DefaultParams
     {
         
         public static readonly string defaultIpAdress = "192.168.0.14";

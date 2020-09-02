@@ -7,7 +7,7 @@ using XamarinDataGrabber.Interfaces;
 
 namespace XamarinDataGrabber.Models
 {
-    class DataModel
+    class ConfigModel
     {
         #region Fields
         private string _ipAddress;
@@ -28,9 +28,9 @@ namespace XamarinDataGrabber.Models
         #endregion
 
 
-        public DataModel()
+        public ConfigModel()
         {
-            //filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "config.json");
+            //Getting folder path using DependencyService from XamarinDataGrabber.Droid
             var folderPath = DependencyService.Get<IFileSystem>().GetExternalStorage();
             filePath = Path.Combine(folderPath, "config.json");
             doesExist = File.Exists(filePath);
@@ -40,23 +40,20 @@ namespace XamarinDataGrabber.Models
             {
                 //If it does. Read values
                 this.ReadConfig();
-                //this.SetDefaultConfig();
-               
+                               
             }
             else //If doesn't assign default values
             {
                 //Initializing default values for data.
                 this.SetDefaultConfig();
-                
-
-               
+                      
             }
             
         }
 
-        //Constructor used when deserializing json string to object using Newtonsoft.Json
+        //Constructor used when deserializing json string to XamarinDataGrabber.Models.DataModel object using Newtonsoft.Json
         [JsonConstructor]
-        public DataModel(string ipAddress, string ipPort, string apiVersion, int maxSamples, int sampleTime)
+        public ConfigModel(string ipAddress, string ipPort, string apiVersion, int maxSamples, int sampleTime)
         {
             IpAddress = ipAddress;
             IpPort = ipPort;
@@ -70,11 +67,11 @@ namespace XamarinDataGrabber.Models
         //Setting default values to class fields and writing them to json configuration file
         public void SetDefaultConfig()
         {
-            IpAddress = DefaultConfigParams.defaultIpAdress;
-            IpPort = DefaultConfigParams.defaultIpPort;
-            ApiVersion = DefaultConfigParams.defaultApiVersion;
-            MaxSamples = DefaultConfigParams.defaultMaxSamples;
-            SampleTime = DefaultConfigParams.defaultSampleTime;
+            IpAddress = DefaultParams.defaultIpAdress;
+            IpPort = DefaultParams.defaultIpPort;
+            ApiVersion = DefaultParams.defaultApiVersion;
+            MaxSamples = DefaultParams.defaultMaxSamples;
+            SampleTime = DefaultParams.defaultSampleTime;
 
             this.WriteConfig();
         }
@@ -88,7 +85,7 @@ namespace XamarinDataGrabber.Models
                 {
                     string jsonString = JsonConvert.SerializeObject(this);
                     writer.WriteLine(jsonString);
-                    Debug.WriteLine(filePath);
+                    
                 }
 
             }
@@ -109,7 +106,7 @@ namespace XamarinDataGrabber.Models
                 {
                     output = reader.ReadToEnd();
                 }
-                DataModel obj = JsonConvert.DeserializeObject<DataModel>(output);
+                ConfigModel obj = JsonConvert.DeserializeObject<ConfigModel>(output);
                 IpAddress = obj.IpAddress;
                 IpPort = obj.IpPort;
                 ApiVersion = obj.ApiVersion;
