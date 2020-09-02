@@ -7,24 +7,18 @@ using XamarinDataGrabber.Interfaces;
 
 namespace XamarinDataGrabber.Models
 {
-    class ConfigModel
+    class ConfigModel : IConfigurationModel
     {
-        #region Fields
-        private string _ipAddress;
-        private string _ipPort;
-        private string _apiVersion;
-        private int _maxSamples;
-        private int _sampleTime;
-
-        private string filePath;
-        private bool doesExist;
-        #endregion
+        
         #region Properties
         public string IpAddress { get; set; }
         public string IpPort { get; set; }
         public string ApiVersion { get; set; }
         public int MaxSamples { get; set; }
         public int SampleTime { get; set; }
+
+        public string FilePath { get; set; }
+        public bool DoesExist { get; set; }
         #endregion
 
 
@@ -32,11 +26,11 @@ namespace XamarinDataGrabber.Models
         {
             //Getting folder path using DependencyService from XamarinDataGrabber.Droid
             var folderPath = DependencyService.Get<IFileSystem>().GetExternalStorage();
-            filePath = Path.Combine(folderPath, "config.json");
-            doesExist = File.Exists(filePath);
+            FilePath = Path.Combine(folderPath, "config.json");
+            DoesExist = File.Exists(FilePath);
 
             //Checking if file exists
-            if (doesExist)
+            if (DoesExist)
             {
                 //If it does. Read values
                 this.ReadConfig();
@@ -81,7 +75,7 @@ namespace XamarinDataGrabber.Models
         {
             try
             {
-                using (var writer = new StreamWriter(filePath))
+                using (var writer = new StreamWriter(FilePath))
                 {
                     string jsonString = JsonConvert.SerializeObject(this);
                     writer.WriteLine(jsonString);
@@ -102,10 +96,11 @@ namespace XamarinDataGrabber.Models
             string output = "";
             try
             {
-                using (var reader = new StreamReader(filePath))
+                using (var reader = new StreamReader(FilePath))
                 {
                     output = reader.ReadToEnd();
                 }
+
                 ConfigModel obj = JsonConvert.DeserializeObject<ConfigModel>(output);
                 IpAddress = obj.IpAddress;
                 IpPort = obj.IpPort;

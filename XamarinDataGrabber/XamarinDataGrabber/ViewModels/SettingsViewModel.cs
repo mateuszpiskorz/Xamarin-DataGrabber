@@ -4,6 +4,7 @@ using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 using XamarinDataGrabber.Models;
+using XamarinDataGrabber.Interfaces;
 
 namespace XamarinDataGrabber.ViewModels
 {
@@ -12,8 +13,7 @@ namespace XamarinDataGrabber.ViewModels
         #region Fields
         string _ipAddress, _ipPort, _apiVersion;
         int _maxSamples, _sampleTime;
-        readonly string SettingsMessage = "UpdateSettings";
-        DataModel context;
+        IConfigurationModel context;
         #endregion
         #region Properties
         public string IpAddress
@@ -83,7 +83,7 @@ namespace XamarinDataGrabber.ViewModels
         public SettingsViewModel()
         {
             //Creating Database instance
-            context = new DataModel();
+            context = Factory.CreateConfiguration();
 
             //Setting initial values to fields
             _ipAddress = context.IpAddress;

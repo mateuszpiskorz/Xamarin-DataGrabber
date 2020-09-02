@@ -4,7 +4,8 @@ using System.Text;
 
 namespace XamarinDataGrabber.ViewModels
 {
-    class LedViewModel
+    class LedViewModel : BaseViewModel
     {
+
     }
 }
