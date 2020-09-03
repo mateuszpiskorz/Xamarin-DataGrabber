@@ -4,7 +4,7 @@ using System.Text;
 
 namespace XamarinDataGrabber.Interfaces
 {
-    interface IConfigurationModel : IConfiguration
+    public interface IConfigurationModel : IConfiguration
     {
          string IpAddress { get; set; }
          string IpPort { get; set; }

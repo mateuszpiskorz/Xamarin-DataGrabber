@@ -11,8 +11,11 @@ namespace XamarinDataGrabber
         public App()
         {
             InitializeComponent();
-
-            MainPage = new MainView();
+            ContainerConfig.Configure();
+            
+             MainPage = new MainView();
+            
+                
         }
 
         protected override void OnStart()

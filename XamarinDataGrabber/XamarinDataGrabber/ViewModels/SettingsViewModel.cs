@@ -8,12 +8,12 @@ using XamarinDataGrabber.Interfaces;
 
 namespace XamarinDataGrabber.ViewModels
 {
-    class SettingsViewModel : BaseViewModel
+    public class SettingsViewModel : BaseViewModel
     {
         #region Fields
         string _ipAddress, _ipPort, _apiVersion;
         int _maxSamples, _sampleTime;
-        IConfigurationModel context;
+        IConfigurationModel _context;
         #endregion
         #region Properties
         public string IpAddress
@@ -80,10 +80,10 @@ namespace XamarinDataGrabber.ViewModels
         public ICommand DefaultCommand { get; set; }
         #endregion 
         
-        public SettingsViewModel()
+        public SettingsViewModel(IConfigurationModel context)
         {
             //Creating Database instance
-            context = Factory.CreateConfiguration();
+            _context = context;
 
             //Setting initial values to fields
             _ipAddress = context.IpAddress;
@@ -102,13 +102,13 @@ namespace XamarinDataGrabber.ViewModels
         private void SetDefaultSettingsButton()
         {
             //Setting default config to datamodel
-            context.SetDefaultConfig();
+            _context.SetDefaultConfig();
 
-            IpAddress = context.IpAddress;
-            IpPort = context.IpPort;
-            ApiVersion = context.ApiVersion;
-            MaxSamples = context.MaxSamples;
-            SampleTime = context.SampleTime;
+            IpAddress = _context.IpAddress;
+            IpPort = _context.IpPort;
+            ApiVersion = _context.ApiVersion;
+            MaxSamples = _context.MaxSamples;
+            SampleTime = _context.SampleTime;
 
         }
 
@@ -116,13 +116,13 @@ namespace XamarinDataGrabber.ViewModels
         private void SaveSettingsButton()
         {
             //Saving data to datamodel
-            context.IpAddress = IpAddress;
-            context.IpPort = IpPort;
-            context.ApiVersion = ApiVersion;
-            context.SampleTime = SampleTime;
-            context.MaxSamples = MaxSamples;
+            _context.IpAddress = IpAddress;
+            _context.IpPort = IpPort;
+            _context.ApiVersion = ApiVersion;
+            _context.SampleTime = SampleTime;
+            _context.MaxSamples = MaxSamples;
 
-            context.WriteConfig();
+            _context.WriteConfig();
         }
          
     }

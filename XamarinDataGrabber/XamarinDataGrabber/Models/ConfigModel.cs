@@ -17,7 +17,9 @@ namespace XamarinDataGrabber.Models
         public int MaxSamples { get; set; }
         public int SampleTime { get; set; }
 
+        [JsonIgnore]
         public string FilePath { get; set; }
+        [JsonIgnore]
         public bool DoesExist { get; set; }
         #endregion
 

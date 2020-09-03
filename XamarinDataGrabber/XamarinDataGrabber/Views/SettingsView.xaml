@@ -3,11 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:XamarinDataGrabber.ViewModels"
              x:Class="XamarinDataGrabber.Views.SettingsView"
-             Padding="10">
+             Padding="10"
+             BindingContext="{Binding SettingsViewModel, Source={StaticResource Locator}}">
     
-    <ContentPage.BindingContext>
+    <!--<ContentPage.BindingContext>
         <vm:SettingsViewModel/>
-    </ContentPage.BindingContext>
+    </ContentPage.BindingContext>-->
     
     <StackLayout>
         <Label FontAttributes="Bold" FontSize="Large" Text="Settings" VerticalOptions="Center"/>
