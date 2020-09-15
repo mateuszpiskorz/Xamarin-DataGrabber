@@ -24,6 +24,9 @@ namespace XamarinDataGrabber
 
             IContainer container = builder.Build();
 
+
+            //Setting services locator to abstract ViewModels creation using Autofac
+            //Due to Xamarin architecture the only way i've found to do this
             AutofacServiceLocator asl = new AutofacServiceLocator(container);
             ServiceLocator.SetLocatorProvider(() => asl);
 
