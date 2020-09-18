@@ -5,6 +5,7 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using XamarinDataGrabber.Models;
 using XamarinDataGrabber.Interfaces;
+using System.Diagnostics;
 
 namespace XamarinDataGrabber.ViewModels
 {
@@ -96,6 +97,7 @@ namespace XamarinDataGrabber.ViewModels
             //Creating Commands for View buttons
             DefaultCommand = new Command(() => { this.SetDefaultSettingsButton(); });
             SaveCommand = new Command(() => { this.SaveSettingsButton(); });
+            Debug.WriteLine("Im created SVM!");
         }
 
         //Default Button method

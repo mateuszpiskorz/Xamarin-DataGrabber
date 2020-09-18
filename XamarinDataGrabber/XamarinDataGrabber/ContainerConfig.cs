@@ -8,6 +8,7 @@ using XamarinDataGrabber.Interfaces;
 using XamarinDataGrabber.Models;
 using XamarinDataGrabber.ViewModels;
 using XamarinDataGrabber.Services;
+using Xamarin.Forms;
 
 namespace XamarinDataGrabber
 {
@@ -20,10 +21,12 @@ namespace XamarinDataGrabber
             builder.RegisterType<LedModel>().As<ILedConfiguration>();
             builder.RegisterType<ConfigModel>().As<IConfigurationModel>();
             builder.RegisterType<DataService>().As<IDataServiceProvider>();
+            builder.RegisterType<MessagingCenter>().As<IMessagingCenter>();
 
             //ViewModels
             builder.RegisterType<SettingsViewModel>().AsSelf();
             builder.RegisterType<LedViewModel>().AsSelf();
+            builder.RegisterType<MainViewModel>().AsSelf();
 
             IContainer container = builder.Build();
 

@@ -12,6 +12,12 @@ namespace XamarinDataGrabber.ViewModels
     //IoC container Autofac needs constructor with interfaces as parameters to wire registered types as dependecies
     public class ViewModelLocator
     {
+        public MainViewModel MainViewModel {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<MainViewModel>();
+            }
+        }
         public SettingsViewModel SettingsViewModel {
             get
             {

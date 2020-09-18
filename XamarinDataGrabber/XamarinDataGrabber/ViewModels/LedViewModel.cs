@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
@@ -43,7 +44,7 @@ namespace XamarinDataGrabber.ViewModels
                     if (_rBrush != byteValue)
                     {
                         _rBrush = byteValue;
-                        CurrentColor = Color.FromRgb(_rBrush, _gBrush, _bBrush);
+                        CurrentColor = Color.FromRgba(_rBrush, _gBrush, _bBrush, DefaultParams.defaultLedColorAlpha);
                         OnPropertyChanged("RBursh");
                     }
                 }
@@ -63,7 +64,7 @@ namespace XamarinDataGrabber.ViewModels
                     if (_gBrush != byteValue)
                     {
                         _gBrush = byteValue;
-                        CurrentColor = Color.FromRgb(_rBrush, _gBrush, _bBrush);
+                        CurrentColor = Color.FromRgba(_rBrush, _gBrush, _bBrush,DefaultParams.defaultLedColorAlpha);
                         OnPropertyChanged("GBursh");
                     }
                 }
@@ -82,7 +83,7 @@ namespace XamarinDataGrabber.ViewModels
                     if (_bBrush != byteValue)
                     {
                         _bBrush = byteValue;
-                        CurrentColor = Color.FromRgb(_rBrush, _gBrush, _bBrush);
+                        CurrentColor = Color.FromRgba(_rBrush, _gBrush, _bBrush, DefaultParams.defaultLedColorAlpha);
                         OnPropertyChanged("BBursh");
                     }
                 }
@@ -100,8 +101,11 @@ namespace XamarinDataGrabber.ViewModels
             RBrush = DefaultParams.defaultLedColor[0].ToString();
             GBrush = DefaultParams.defaultLedColor[1].ToString();
             BBrush = DefaultParams.defaultLedColor[2].ToString();
+            Debug.WriteLine("Im Created LVM"); //DEBUG
+            
 
             DefaultCommand = new Command(() => ResetToDefault());
+            SendCommand = new Command(() => SendData());
         }
 
         //Initializing Grid which contains all BoxViews(leds) 
@@ -110,8 +114,9 @@ namespace XamarinDataGrabber.ViewModels
             Grid grid = new Grid()
             {
 
-                HorizontalOptions = LayoutOptions.CenterAndExpand,
-                Margin = 5
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.Center,
+                Margin = new Thickness(55,5,5,5)
 
             };
 
@@ -128,7 +133,9 @@ namespace XamarinDataGrabber.ViewModels
 
                         Color = SetDefaultColor(),
                         HeightRequest = 30,
-                        WidthRequest = 30
+                        WidthRequest = 30,
+                        HorizontalOptions = LayoutOptions.Center,
+                        VerticalOptions = LayoutOptions.Center
 
                     };
 
@@ -159,7 +166,8 @@ namespace XamarinDataGrabber.ViewModels
         //Setting Default Color of the led
         public Color SetDefaultColor()
         {
-            return Color.FromRgb(DefaultParams.defaultLedColor[0], DefaultParams.defaultLedColor[1], DefaultParams.defaultLedColor[2]);
+            return Color.FromRgba(DefaultParams.defaultLedColor[0], DefaultParams.defaultLedColor[1], DefaultParams.defaultLedColor[2], DefaultParams.defaultLedColorAlpha);
+            
         }
 
         //Command executed when BoxView(Led) in GUI is tapped
@@ -175,15 +183,33 @@ namespace XamarinDataGrabber.ViewModels
         //Command Resetting all BoxViews(Leds) color to defaut. Executed when "Default" button is pressed
         public void ResetToDefault()
         {
+            //Resetting color values for boxviews and led data list
             foreach (BoxView view in LedGrid.Children)
             {
                 view.Color = SetDefaultColor();
+                
+                
+            }
+            foreach (ILedConfiguration led in _ledMatrix)
+            {
+                led.R = DefaultParams.defaultLedColor[0];
+                led.G = DefaultParams.defaultLedColor[1];
+                led.B = DefaultParams.defaultLedColor[2];
+
             }
         }
+        public string GenerateJson()
+        {
+            return JsonConvert.SerializeObject(_ledMatrix);
+             
+        }
+
 
         public void SendData()
         {
-            //TODO: Implement HTTP REQUESTS
+            string jsonData = GenerateJson();
+            MessagingCenter.Send<LedViewModel, string>(this, "Hi", jsonData);
+            
         }
 
     }

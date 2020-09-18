@@ -7,6 +7,8 @@
       <StackLayout>
             <Label FontAttributes="Bold" Text="Led Matrix Control" FontSize="Large" HorizontalTextAlignment="Center"/>
             <ContentView  Content="{Binding LedGrid}"/>
+ 
+           
             <Grid Margin="5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -73,6 +75,7 @@
                     Grid.Column="0"
                     VerticalOptions="Center"
                     Text="Send"
+                    Command="{Binding SendCommand}"
                     />
                 <Button 
                     Grid.Column="1" 
