@@ -12,5 +12,6 @@ namespace XamarinDataGrabber.Models
         public static readonly string defaultApiVersion = "1.0.0";
         public static readonly int defaultSampleTime = 500;
         public static readonly int defaultMaxSamples = 100;
+        public static readonly byte[] defaultLedColor = { 94, 94, 94 };
     }
 }

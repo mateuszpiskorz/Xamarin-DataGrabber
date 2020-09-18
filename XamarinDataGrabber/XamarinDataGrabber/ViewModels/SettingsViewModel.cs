@@ -80,17 +80,17 @@ namespace XamarinDataGrabber.ViewModels
         public ICommand DefaultCommand { get; set; }
         #endregion 
         
-        public SettingsViewModel(IConfigurationModel context)
+        public SettingsViewModel(IDataServiceProvider service)
         {
             //Creating Database instance
-            _context = context;
+            _context = service.GetConfigurationInstance();
 
             //Setting initial values to fields
-            _ipAddress = context.IpAddress;
-            _ipPort = context.IpPort;
-            _apiVersion = context.ApiVersion;
-            _maxSamples = context.MaxSamples;
-            _sampleTime = context.SampleTime;
+            _ipAddress = _context.IpAddress;
+            _ipPort = _context.IpPort;          //CHECK IF ITS GOOD ???
+            _apiVersion = _context.ApiVersion;
+            _maxSamples = _context.MaxSamples;
+            _sampleTime = _context.SampleTime;
 
 
             //Creating Commands for View buttons

@@ -4,12 +4,12 @@ using System.Text;
 
 namespace XamarinDataGrabber.Interfaces
 {
-    public interface ILedConfiguration : IConfiguration
+    public interface ILedConfiguration 
     {
         int PosX { get; set; }
         int PosY { get; set; }
-        int R { get; set; }
-        int G { get; set; }
-        int B { get; set; }
+        byte R { get; set; }
+        byte G { get; set; }
+        byte B { get; set; }
     }
 }

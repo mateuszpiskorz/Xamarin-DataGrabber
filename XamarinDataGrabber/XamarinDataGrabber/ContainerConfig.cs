@@ -7,6 +7,7 @@ using CommonServiceLocator;
 using XamarinDataGrabber.Interfaces;
 using XamarinDataGrabber.Models;
 using XamarinDataGrabber.ViewModels;
+using XamarinDataGrabber.Services;
 
 namespace XamarinDataGrabber
 {
@@ -18,9 +19,11 @@ namespace XamarinDataGrabber
             //Models
             builder.RegisterType<LedModel>().As<ILedConfiguration>();
             builder.RegisterType<ConfigModel>().As<IConfigurationModel>();
+            builder.RegisterType<DataService>().As<IDataServiceProvider>();
 
             //ViewModels
             builder.RegisterType<SettingsViewModel>().AsSelf();
+            builder.RegisterType<LedViewModel>().AsSelf();
 
             IContainer container = builder.Build();
 

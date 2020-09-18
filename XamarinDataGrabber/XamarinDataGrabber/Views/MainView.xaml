@@ -6,8 +6,9 @@
              x:Class="XamarinDataGrabber.Views.MainView">
     
     
-    <local:NewView Title="Main"/>
+    
     <local:TestView Title="Test"/>
+    <local:LedView Title="LED"/>
     <local:SettingsView Title="Settings"/>
 
 </TabbedPage>

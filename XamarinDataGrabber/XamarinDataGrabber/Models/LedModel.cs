@@ -7,17 +7,26 @@ namespace XamarinDataGrabber.Models
 {
     class LedModel : ILedConfiguration
     {
-        int _posX, _posY, _r, _g, _b;
+        int _posX, _posY;
+        byte _r, _g, _b;
         public int PosX { get { return _posX; }  set { _posX = value; } }
         public int PosY { get { return _posY; }  set { _posY = value; } }
-        public int R { get { return _r; } set { _r = value; } }
-        public int G { get { return _g; } set { _g = value; } }
-        public int B { get { return _b; } set { _b = value; } }
+        public byte R { get { return _r; } set { _r = value; } }
+        public byte G { get { return _g; } set { _g = value; } }
+        public byte B { get { return _b; } set { _b = value; } }
 
-        public string FilePath { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public bool DoesExist { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        public LedModel(int posx, int posy, int r, int g, int b)
+        public LedModel(int posx, int posy)
+        {
+            PosX = posx;
+            PosY = posy;
+            R = DefaultParams.defaultLedColor[0];
+            G = DefaultParams.defaultLedColor[1];
+            B = DefaultParams.defaultLedColor[2];
+
+        }
+
+        public LedModel(int posx, int posy, byte r, byte g, byte b)
         {
             PosX = posx;
             PosY = posy;
@@ -26,19 +35,11 @@ namespace XamarinDataGrabber.Models
             B = b;
         }
 
-        public void SetDefaultConfig()
+        public void SetDefaultSettings()
         {
-            throw new NotImplementedException();
+            //TODO: Set Default Colors for the Diode
         }
 
-        public void WriteConfig()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ReadConfig()
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

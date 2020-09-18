@@ -4,7 +4,9 @@ using System.Text;
 
 namespace XamarinDataGrabber.Interfaces
 {
-    interface IDataServiceProvider
+    public interface IDataServiceProvider
     {
+        IConfigurationModel GetConfigurationInstance();
+        IList<ILedConfiguration> GetLedMatrix();
     }
 }

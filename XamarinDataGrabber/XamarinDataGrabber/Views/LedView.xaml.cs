@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace XamarinDataGrabber.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class NewView : ContentPage
+	public partial class LedView : ContentPage
 	{
-		public NewView ()
+		public LedView ()
 		{
 			InitializeComponent ();
 		}

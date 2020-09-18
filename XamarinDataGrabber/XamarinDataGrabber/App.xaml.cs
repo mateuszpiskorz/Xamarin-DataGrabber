@@ -12,8 +12,7 @@ namespace XamarinDataGrabber
         {
             InitializeComponent();
             ContainerConfig.Configure();
-            
-             MainPage = new MainView();
+            MainPage = new MainView();
             
                 
         }
@@ -21,6 +20,7 @@ namespace XamarinDataGrabber
         protected override void OnStart()
         {
             // Handle when your app starts
+            
         }
 
         protected override void OnSleep()

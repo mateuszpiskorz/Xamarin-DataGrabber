@@ -11,7 +11,7 @@
     </ContentPage.BindingContext>-->
     
     <StackLayout>
-        <Label FontAttributes="Bold" FontSize="Large" Text="Settings" VerticalOptions="Center"/>
+        <Label FontAttributes="Bold" FontSize="Large" Text="Settings" HorizontalTextAlignment="Center"/>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
