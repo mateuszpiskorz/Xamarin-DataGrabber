@@ -31,5 +31,12 @@ namespace XamarinDataGrabber.ViewModels
                 return ServiceLocator.Current.GetInstance<LedViewModel>();
             }
         }
+
+        public GraphViewModel GraphViewModel {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<GraphViewModel>();
+            }
+        }
     }
 }

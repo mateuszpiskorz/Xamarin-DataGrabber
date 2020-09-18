@@ -204,7 +204,7 @@ namespace XamarinDataGrabber.ViewModels
              
         }
 
-
+        //Method used to communicate with MainViewModel
         public void SendData()
         {
             string jsonData = GenerateJson();

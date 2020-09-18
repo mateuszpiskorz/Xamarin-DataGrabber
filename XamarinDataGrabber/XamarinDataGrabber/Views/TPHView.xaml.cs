@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace XamarinDataGrabber.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class TestView : ContentPage
+	public partial class TPHView : ContentPage
 	{
-		public TestView ()
+		public TPHView ()
 		{
 			InitializeComponent ();
 		}

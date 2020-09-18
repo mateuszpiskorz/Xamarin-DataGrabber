@@ -8,7 +8,7 @@
     
     
     
-    <local:TestView Title="Test"/>
+    <local:TPHView Title="TPH Graphs"/>
     <local:LedView Title="LED"/>
     <local:SettingsView Title="Settings"/>
 

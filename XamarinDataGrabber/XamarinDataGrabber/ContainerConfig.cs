@@ -22,11 +22,13 @@ namespace XamarinDataGrabber
             builder.RegisterType<ConfigModel>().As<IConfigurationModel>();
             builder.RegisterType<DataService>().As<IDataServiceProvider>();
             builder.RegisterType<MessagingCenter>().As<IMessagingCenter>();
+            builder.RegisterType<GraphService>().As<IGraphServiceProvider>();
 
             //ViewModels
             builder.RegisterType<SettingsViewModel>().AsSelf();
             builder.RegisterType<LedViewModel>().AsSelf();
             builder.RegisterType<MainViewModel>().AsSelf();
+            builder.RegisterType<GraphViewModel>().AsSelf();
 
             IContainer container = builder.Build();
 
