@@ -8,7 +8,7 @@ Simple mobile application made using Xamarin.Forms providing functionality to op
 ### Attention!
 **Application requires server-side API and Python scripts (SenseHat functionality) on RaspberryPi which are not included in this repository.**
 ## Technologies/Frameworks/Patterns
-Xamarin.Forms, Autofac, MVVM pattern, C#, XAML
+Xamarin.Forms, OxyPlot, Autofac, MVVM pattern, C#, XAML
 ## TODOs
 * Complete basic functionality
 * ...
