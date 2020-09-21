@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using XamarinDataGrabber.Interfaces;
+using XamarinDataGrabber.Models;
 
 namespace XamarinDataGrabber.Services
 {
@@ -23,7 +24,7 @@ namespace XamarinDataGrabber.Services
             {
                 Position = AxisPosition.Bottom,
                 Minimum = 0,
-                Maximum = _service.GetConfigurationInstance().MaxSamples,
+                Maximum = _service.GetConfigurationInstance().XAxisMax,
                 Key = "Horizontal",
                 Unit = "sec",
                 Title = "Time"
@@ -52,5 +53,26 @@ namespace XamarinDataGrabber.Services
 
             return plot;
         }
+
+        public void UpdateChart(PlotModel plotModel, double xValue, double yValue)
+        {
+            LineSeries plotSeries = (LineSeries)plotModel.Series[0];
+
+            plotSeries.Points.Add(new DataPoint(xValue, yValue));
+
+            if (plotSeries.Points.Count > _service.GetConfigurationInstance().MaxSamples)
+            {
+                plotSeries.Points.RemoveAt(0);
+            }
+
+            if (xValue >= plotModel.Axes[0].Maximum)
+            {
+                plotModel.Axes[0].Minimum = (xValue - _service.GetConfigurationInstance().XAxisMax);
+                plotModel.Axes[0].Maximum = xValue + _service.GetConfigurationInstance().SampleTime / 1000.0;
+            }
+
+            plotModel.InvalidatePlot(true);
+        }
+        
     }
 }

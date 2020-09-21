@@ -18,6 +18,16 @@ namespace XamarinDataGrabber.Models
         public int SampleTime { get; set; }
 
         [JsonIgnore]
+        public double XAxisMax
+        {
+            get
+            {
+                return MaxSamples * SampleTime / 1000.0;
+            }
+
+        }
+
+        [JsonIgnore]
         public string FilePath { get; set; }
         [JsonIgnore]
         public bool DoesExist { get; set; }

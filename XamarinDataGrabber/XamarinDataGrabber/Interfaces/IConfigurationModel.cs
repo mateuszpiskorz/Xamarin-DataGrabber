@@ -11,5 +11,6 @@ namespace XamarinDataGrabber.Interfaces
          string ApiVersion { get; set; }
          int MaxSamples { get; set; }
          int SampleTime { get; set; }
+         double XAxisMax { get;}
     }
 }
