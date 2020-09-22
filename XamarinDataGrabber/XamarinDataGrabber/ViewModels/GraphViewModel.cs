@@ -41,32 +41,22 @@ namespace XamarinDataGrabber.ViewModels
             StopCommand = new Command(() => StopTransfer());
         }
 
-        public void RequestTimerElapsed(object sender, ElapsedEventArgs e)
-        {
-
-        }
         public void StartTransfer()
         {
-            if (RequestTimer == null)
-            {
-                RequestTimer = new Timer(_dataService.GetConfigurationInstance().SampleTime);
-                RequestTimer.Elapsed += new ElapsedEventHandler(RequestTimerElapsed);
-                RequestTimer.Enabled = true;
+            TemperatureModel.ResetAllAxes();
+            HumidityModel.ResetAllAxes();
+            PressureModel.ResetAllAxes();
 
-                TemperatureModel.ResetAllAxes();
-                PressureModel.ResetAllAxes();
-                HumidityModel.ResetAllAxes();
+            MessagingCenter.Send<GraphViewModel>(this, "RequestData");
+            MessagingCenter.Subscribe<MainViewModel,string>(this, "TransferData", (sender, arg) =>
+            {
                 
-            }
+            });
         }
 
         public void StopTransfer()
         {
-            if (RequestTimer != null)
-            {
-                RequestTimer.Enabled = false;
-                RequestTimer = null;
-            }
+            MessagingCenter.Unsubscribe<MainViewModel>(this, "TransferData");
         }
 
         
