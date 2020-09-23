@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using XamarinDataGrabber.Interfaces;
+using XamarinDataGrabber.Enums;
 
 namespace XamarinDataGrabber.Services
 {
@@ -20,14 +21,14 @@ namespace XamarinDataGrabber.Services
         }
 
         //Method handling HTTP GET request
-        public async Task<string> HandleGetRequest()
+        public async Task<string> HandleGetRequest(HttpRequestsTypes requestType)
         {
             string responseText = null;
 
             try
             {
                
-                    responseText = await _client.GetStringAsync(GetServerUrl("GET"));
+                    responseText = await _client.GetStringAsync(GetServerUrl(requestType));
                 
             }
             catch(Exception e)
@@ -40,14 +41,14 @@ namespace XamarinDataGrabber.Services
         }
 
         //Method handling HTTP POST requests containg led configuration data
-        public async Task<string> HandlePostRequest(IList<ILedConfiguration> data)
+        public async Task<string> HandlePostRequest(IList<ILedConfiguration> data, HttpRequestsTypes requestType)
         {
             string responseText = null;
 
             try
             { 
                     var requestDataCollection = new FormUrlEncodedContent(GenerateKeyValuePair(data));
-                    var responseMessage = await _client.PostAsync(GetServerUrl("POST"), requestDataCollection );
+                    var responseMessage = await _client.PostAsync(GetServerUrl(requestType), requestDataCollection );
                     responseText = await responseMessage.Content.ReadAsStringAsync();
                     if (String.IsNullOrEmpty(responseText)) Debug.WriteLine("HTTP POST response text is null");    
             }
@@ -83,11 +84,15 @@ namespace XamarinDataGrabber.Services
         }
 
         //Method providing url for HTTP request taking in account wanted request type
-        private string GetServerUrl(string requestType)
+        private string GetServerUrl(HttpRequestsTypes requestType)
         {
-            if (requestType == "GET")
+            if (requestType == HttpRequestsTypes.HttpGetSensorData)
             {
-                return $"http://{_service.IpAddress}:{_service.IpPort}?request=GET";
+                return $"http://{_service.IpAddress}:{_service.IpPort}?request=GETSens";
+            }
+            else if (requestType == HttpRequestsTypes.HttpGetJoystickData)
+            {
+                return $"http://{_service.IpAddress}:{_service.IpPort}?request=GETJoy";
             }
             else
             {
