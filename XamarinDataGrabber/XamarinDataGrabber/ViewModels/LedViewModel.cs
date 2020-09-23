@@ -7,6 +7,7 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using XamarinDataGrabber.Interfaces;
 using XamarinDataGrabber.Models;
+using XamarinDataGrabber.Services;
 
 namespace XamarinDataGrabber.ViewModels
 {
@@ -158,10 +159,7 @@ namespace XamarinDataGrabber.ViewModels
             }
             return grid;
         }
-        private int ConvertDimensions(int rows, int cols)
-        {
-            return (rows * 8) + cols;
-        }
+        
 
         //Setting Default Color of the led
         public Color SetDefaultColor()
@@ -174,10 +172,10 @@ namespace XamarinDataGrabber.ViewModels
         public void LedOnClicked(BoxView sender, int[] pos)
         {
             sender.Color = CurrentColor;
-            var index = ConvertDimensions(pos[0], pos[1]);
-            _ledMatrix[ConvertDimensions(pos[0], pos[1])].R = Byte.Parse(RBrush);
-            _ledMatrix[ConvertDimensions(pos[0], pos[1])].G = Byte.Parse(GBrush);
-            _ledMatrix[ConvertDimensions(pos[0], pos[1])].B = Byte.Parse(BBrush);
+            var index = DimensionsConverter.ConvertDimensions(pos[0], pos[1]);
+            _ledMatrix[DimensionsConverter.ConvertDimensions(pos[0], pos[1])].R = Byte.Parse(RBrush);
+            _ledMatrix[DimensionsConverter.ConvertDimensions(pos[0], pos[1])].G = Byte.Parse(GBrush);
+            _ledMatrix[DimensionsConverter.ConvertDimensions(pos[0], pos[1])].B = Byte.Parse(BBrush);
         }
 
         //Command Resetting all BoxViews(Leds) color to defaut. Executed when "Default" button is pressed
