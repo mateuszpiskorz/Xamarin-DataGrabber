@@ -9,7 +9,7 @@ using XamarinDataGrabber.Enums;
 
 namespace XamarinDataGrabber.Services
 {
-    public class IoCServerService
+    public class IoCServerService : IServerService
     {
         
         private IConfigurationModel _service;

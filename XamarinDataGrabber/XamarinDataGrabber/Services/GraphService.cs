@@ -12,9 +12,11 @@ namespace XamarinDataGrabber.Services
     public class GraphService : IGraphServiceProvider
     {
         IDataServiceProvider _service;
+        
         public GraphService(IDataServiceProvider service)
         {
             _service = service;
+            
         }
 
         public PlotModel CreateTimePlot(string plotTitle,  string yAxisTitle, string yAxisUnit, double yAxisMinimum, double yAxisMaximum, string seriesTitle, OxyColor seriesColor )

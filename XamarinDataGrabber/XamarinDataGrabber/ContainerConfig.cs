@@ -24,6 +24,7 @@ namespace XamarinDataGrabber
             builder.RegisterType<DataService>().As<IDataServiceProvider>();
             builder.RegisterType<MessagingCenter>().As<IMessagingCenter>();
             builder.RegisterType<GraphService>().As<IGraphServiceProvider>();
+            builder.RegisterType<IoCServerService>().As<IServerService>();
 
 
             //Taking in consideration Microsoft docs HttpClient should be instatiented once per app lifecycle

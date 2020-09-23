@@ -8,6 +8,7 @@ using Xamarin.Forms;
 using XamarinDataGrabber.Interfaces;
 using XamarinDataGrabber.Models;
 using XamarinDataGrabber.Services;
+using XamarinDataGrabber.Enums;
 
 namespace XamarinDataGrabber.ViewModels
 {
@@ -16,6 +17,7 @@ namespace XamarinDataGrabber.ViewModels
 
         #region Fields
         private IList<ILedConfiguration> _ledMatrix;
+        private IServerService _server;
         private Color _currentColor;
         private byte _rBrush, _gBrush, _bBrush;
         #endregion
@@ -94,9 +96,10 @@ namespace XamarinDataGrabber.ViewModels
         public ICommand SendCommand { get; set; }
         public ICommand DefaultCommand { get; set; }
         #endregion
-        public LedViewModel(IDataServiceProvider dataService)
+        public LedViewModel(IDataServiceProvider dataService, IServerService server)
         {
             _ledMatrix = dataService.GetLedMatrix();
+            _server = server;
             LedGrid = LedGridInitialzation();
             CurrentColor = SetDefaultColor();
             RBrush = DefaultParams.defaultLedColor[0].ToString();
@@ -196,18 +199,13 @@ namespace XamarinDataGrabber.ViewModels
 
             }
         }
-        public string GenerateJson()
-        {
-            return JsonConvert.SerializeObject(_ledMatrix);
-             
-        }
+        
 
-        //Method used to communicate with MainViewModel
-        public void SendData()
+        //Method used to send led data
+        public async void SendData()
         {
-            string jsonData = GenerateJson();
-            MessagingCenter.Send<LedViewModel, string>(this, "Hi", jsonData);
-            
+            var responseText = await _server.HandlePostRequest(_ledMatrix, HttpRequestsTypes.HttpPostLedData);
+            Debug.WriteLine(responseText);  
         }
 
     }

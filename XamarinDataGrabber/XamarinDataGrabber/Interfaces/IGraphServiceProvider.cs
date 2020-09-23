@@ -8,5 +8,6 @@ namespace XamarinDataGrabber.Interfaces
     public interface IGraphServiceProvider
     {
         PlotModel CreateTimePlot(string plotTitle, string yAxisTitle, string yAxisUnit, double yAxisMinimum, double yAxisMaximum, string seriesTitle, OxyColor seriesColor);
+        void UpdateChart(PlotModel plotModel, double xValue, double yValue);
     }
 }
