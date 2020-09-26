@@ -35,6 +35,7 @@ namespace XamarinDataGrabber
             builder.RegisterType<LedViewModel>().AsSelf();
             builder.RegisterType<MainViewModel>().AsSelf();
             builder.RegisterType<GraphViewModel>().AsSelf();
+            builder.RegisterType<JoystickViewModel>().AsSelf();
 
             IContainer container = builder.Build();
 

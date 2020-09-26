@@ -4,6 +4,7 @@ using OxyPlot.Series;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using XamarinDataGrabber.Interfaces;
 using XamarinDataGrabber.Models;
 
@@ -55,14 +56,14 @@ namespace XamarinDataGrabber.Services
 
             return plot;
         }
-
-        public void UpdateChart(PlotModel plotModel, double xValue, double yValue)
+   
+        public PlotModel UpdateChart(PlotModel plotModel, double xValue, double yValue)
         {
             LineSeries plotSeries = (LineSeries)plotModel.Series[0];
 
             plotSeries.Points.Add(new DataPoint(xValue, yValue));
 
-            if (plotSeries.Points.Count > _service.GetConfigurationInstance().MaxSamples)
+            if (plotSeries.Points.Count >= _service.GetConfigurationInstance().MaxSamples)
             {
                 plotSeries.Points.RemoveAt(0);
             }
@@ -74,6 +75,8 @@ namespace XamarinDataGrabber.Services
             }
 
             plotModel.InvalidatePlot(true);
+
+            return plotModel;
         }
         
     }

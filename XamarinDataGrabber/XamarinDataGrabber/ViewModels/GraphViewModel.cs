@@ -11,6 +11,10 @@ using XamarinDataGrabber.Interfaces;
 using XamarinDataGrabber.Enums;
 using System.Diagnostics;
 using Newtonsoft.Json.Linq;
+using Microsoft.CSharp.RuntimeBinder;
+using XamarinDataGrabber.Models;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace XamarinDataGrabber.ViewModels
 {
@@ -23,14 +27,46 @@ namespace XamarinDataGrabber.ViewModels
         IServerService _server;
         private Timer _requestTimer;
         private int _timeStamp;
+        private PlotModel _temperaturePlotModel;
+        private PlotModel _humidityPlotModel;
+        private PlotModel _pressurePlotModel;
         #endregion
         #region Properties
 
         public ICommand StartCommand { get; set; }
         public ICommand StopCommand { get; set; }
-        public PlotModel TemperatureModel { get; set; }
-        public PlotModel HumidityModel { get; set; }
-        public PlotModel PressureModel { get; set; }
+        public PlotModel TemperatureModel {
+            get {
+                return _temperaturePlotModel;
+            }
+            set {
+                _temperaturePlotModel = value;
+                OnPropertyChanged("TemperatureModel");
+            } }
+        public PlotModel HumidityModel
+        {
+            get
+            {
+                return _humidityPlotModel;
+            }
+            set
+            {
+                _humidityPlotModel = value;
+                OnPropertyChanged("HumidityModel");
+            }
+        }
+        public PlotModel PressureModel
+        {
+            get
+            {
+                return _pressurePlotModel;
+            }
+            set
+            {
+                _pressurePlotModel = value;
+                OnPropertyChanged("PressureModel");
+            }
+        }
         #endregion
 
         public GraphViewModel(IGraphServiceProvider graph, IDataServiceProvider dataService, IServerService server)
@@ -39,7 +75,7 @@ namespace XamarinDataGrabber.ViewModels
             _graphService = graph;
             _dataService = dataService;
             _server = server;
-            TemperatureModel = _graphService.CreateTimePlot("Temperature", "Temperature Value", "C", 0.0,40.0,"Temperature",OxyColor.FromRgb(255,0,0));
+            TemperatureModel = _graphService.CreateTimePlot("Temperature", "Temperature Value", "C", 0.0,40.0,"Temperature", OxyColor.FromRgb(255,0,0));
             HumidityModel = _graphService.CreateTimePlot("Humidity", "Humidity Value", "%", 0.0, 100.0, "Humidity", OxyColor.FromRgb(0, 0, 255));
             PressureModel = _graphService.CreateTimePlot("Pressure", "Pressure Value", "hPa", 900.0, 1200.0, "Pressure", OxyColor.FromRgb(0, 255, 0));
             StartCommand = new Command(() => StartTransfer());
@@ -56,6 +92,7 @@ namespace XamarinDataGrabber.ViewModels
             {
                 _requestTimer = new Timer(_dataService.GetConfigurationInstance().SampleTime);
                 _requestTimer.Elapsed += new ElapsedEventHandler(RequestTimerElaped);
+                _requestTimer.Enabled = true;
             }
         }
 
@@ -71,13 +108,14 @@ namespace XamarinDataGrabber.ViewModels
         private async void RequestTimerElaped(object sender, ElapsedEventArgs e)
         {
             string responseText = await _server.HandleGetRequest(HttpRequestsTypes.HttpGetSensorData);
+            Debug.WriteLine(responseText);
 
             try
             {
-                dynamic responseJson = JObject.Parse(responseText);
-                _graphService.UpdateChart(TemperatureModel, _timeStamp / 1000.0, (double)responseJson.temp);
-                _graphService.UpdateChart(HumidityModel, _timeStamp / 1000.0, (double)responseJson.hum);
-                _graphService.UpdateChart(PressureModel, _timeStamp / 1000.0, (double)responseJson.press);
+                 var responseJson = await GetResponseCollection(responseText);
+                 TemperatureModel =_graphService.UpdateChart(TemperatureModel, _timeStamp / 1000.0, responseJson.Find(item => item.Name == "Temperature").Value);
+                 HumidityModel = _graphService.UpdateChart(HumidityModel, _timeStamp / 1000.0, responseJson.Find(item => item.Name == "Humidity").Value);
+                 PressureModel = _graphService.UpdateChart(PressureModel, _timeStamp / 1000.0, responseJson.Find(item => item.Name == "Pressure").Value);
             }
             catch(Exception exc)
             {
@@ -85,6 +123,24 @@ namespace XamarinDataGrabber.ViewModels
                 Debug.WriteLine(exc);
             }
             _timeStamp += _dataService.GetConfigurationInstance().SampleTime;
+        }
+
+        private async  Task<List<SensorDataModel>> GetResponseCollection(string responseString)
+        {
+            List<SensorDataModel> data = null;
+            
+            try
+            {
+                  data = await Task.Run(() => JsonConvert.DeserializeObject<List<SensorDataModel>>(responseString));
+                 
+            }
+            catch (JsonSerializationException e)
+            {
+                Debug.WriteLine("Err: Json Collection deserializing");
+                Debug.WriteLine(e);
+            }
+
+            return data;
         }
         
     }

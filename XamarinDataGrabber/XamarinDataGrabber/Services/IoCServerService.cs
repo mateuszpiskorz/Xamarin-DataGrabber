@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using XamarinDataGrabber.Interfaces;
 using XamarinDataGrabber.Enums;
+using Newtonsoft.Json;
+using XamarinDataGrabber.Models;
 
 namespace XamarinDataGrabber.Services
 {
@@ -27,9 +29,11 @@ namespace XamarinDataGrabber.Services
 
             try
             {
-               
-                    responseText = await _client.GetStringAsync(GetServerUrl(requestType));
-                
+                if (requestType == HttpRequestsTypes.HttpGetSensorData)
+                    responseText = await _client.GetStringAsync(GetServerUrl(HttpRequestsTypes.HttpGetSensorData));
+                else
+                    responseText = await _client.GetStringAsync(GetServerUrl(HttpRequestsTypes.HttpGetJoystickData));
+                   
             }
             catch(Exception e)
             {
@@ -88,11 +92,11 @@ namespace XamarinDataGrabber.Services
         {
             if (requestType == HttpRequestsTypes.HttpGetSensorData)
             {
-                return $"http://{_service.IpAddress}:{_service.IpPort}?request=GETSens";
+                return $"http://{_service.IpAddress}:{_service.IpPort}/?request=GETSens";
             }
             else if (requestType == HttpRequestsTypes.HttpGetJoystickData)
             {
-                return $"http://{_service.IpAddress}:{_service.IpPort}?request=GETJoy";
+                return $"http://{_service.IpAddress}:{_service.IpPort}/?request=GETJoy";
             }
             else
             {

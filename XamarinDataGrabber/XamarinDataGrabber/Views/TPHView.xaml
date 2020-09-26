@@ -26,11 +26,13 @@
             <Button Grid.Column="0"
                     Grid.Row="1"
                     Text="Start"
-                    VerticalOptions="Center"/>
+                    VerticalOptions="Center"
+                    Command="{Binding StartCommand}"/>
             <Button Grid.Column="1"
                     Grid.Row="1"
                     Text="Stop"
-                    VerticalOptions="Center"/>
+                    VerticalOptions="Center"
+                    Command="{Binding StopCommand}"/>
             <oxy:PlotView Grid.ColumnSpan="2" Grid.Row="2" Model="{Binding TemperatureModel}"/>
             <oxy:PlotView Grid.ColumnSpan="2" Grid.Row="3" Model="{Binding HumidityModel}"/>
             <oxy:PlotView Grid.ColumnSpan="2" Grid.Row="4" Model="{Binding PressureModel}"/>

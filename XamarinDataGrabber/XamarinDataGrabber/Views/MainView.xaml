@@ -6,9 +6,10 @@
              x:Class="XamarinDataGrabber.Views.MainView"
              BindingContext="{Binding MainViewModel,Source={StaticResource Locator}}">
     
-    
-    
-    <local:TPHView Title="TPH Graphs"/>
+
+
+    <local:JoystickView Title="Joystick"/>
+    <local:TPHView Title="Graphs"/>
     <local:LedView Title="LED"/>
     <local:SettingsView Title="Settings"/>
 
