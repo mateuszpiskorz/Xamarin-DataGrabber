@@ -20,7 +20,7 @@ namespace XamarinDataGrabber.Services
             
         }
 
-        public PlotModel CreateTimePlot(string plotTitle,  string yAxisTitle, string yAxisUnit, double yAxisMinimum, double yAxisMaximum, string seriesTitle, OxyColor seriesColor )
+        public PlotModel CreateTimePlot(string plotTitle,  string yAxisTitle, string yAxisUnit, double yAxisMinimum, double yAxisMaximum, string seriesTitle, OxyColor seriesColor, int majorStep )
         {
             PlotModel plot = new PlotModel() { Title = plotTitle };
             plot.Axes.Add(new LinearAxis()
@@ -37,6 +37,9 @@ namespace XamarinDataGrabber.Services
                 Position = AxisPosition.Left,
                 Minimum = yAxisMinimum,
                 Maximum = yAxisMaximum,
+                MajorStep = majorStep,
+                MajorGridlineStyle = LineStyle.Dot,
+                MajorGridlineColor = OxyColors.LightGray,
                 FontSize = 10,
                 Key = "Vertical",
                 Unit = yAxisUnit,

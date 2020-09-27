@@ -75,9 +75,9 @@ namespace XamarinDataGrabber.ViewModels
             _graphService = graph;
             _dataService = dataService;
             _server = server;
-            TemperatureModel = _graphService.CreateTimePlot("Temperature", "Temperature Value", "C", 0.0,40.0,"Temperature", OxyColor.FromRgb(255,0,0));
-            HumidityModel = _graphService.CreateTimePlot("Humidity", "Humidity Value", "%", 0.0, 100.0, "Humidity", OxyColor.FromRgb(0, 0, 255));
-            PressureModel = _graphService.CreateTimePlot("Pressure", "Pressure Value", "hPa", 900.0, 1200.0, "Pressure", OxyColor.FromRgb(0, 255, 0));
+            TemperatureModel = _graphService.CreateTimePlot("Temperature", "Temperature Value", "C", 0.0,40.0,"Temperature", OxyColor.FromRgb(255,0,0), 10);
+            HumidityModel = _graphService.CreateTimePlot("Humidity", "Humidity Value", "%", 0.0, 100.0, "Humidity", OxyColor.FromRgb(0, 0, 255), 10);
+            PressureModel = _graphService.CreateTimePlot("Pressure", "Pressure Value", "hPa", 900.0, 1200.0, "Pressure", OxyColor.FromRgb(0, 255, 0), 100);
             StartCommand = new Command(() => StartTransfer());
             StopCommand = new Command(() => StopTransfer());
         }

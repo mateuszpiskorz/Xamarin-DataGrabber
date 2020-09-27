@@ -9,7 +9,6 @@ using XamarinDataGrabber.Enums;
 using Newtonsoft.Json;
 using XamarinDataGrabber.Models;
 using XamarinDataGrabber.Helpers;
-using Newtonsoft.Json;
 
 namespace XamarinDataGrabber.Services
 {
