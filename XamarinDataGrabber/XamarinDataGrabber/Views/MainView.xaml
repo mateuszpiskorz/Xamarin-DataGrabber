@@ -4,13 +4,14 @@
              xmlns:local="clr-namespace:XamarinDataGrabber.Views"
              xmlns:vm="clr-namespace:XamarinDataGrabber.ViewModels"
              x:Class="XamarinDataGrabber.Views.MainView"
-             BindingContext="{Binding MainViewModel,Source={StaticResource Locator}}">
-    
+             BindingContext="{Binding MainViewModel,Source={StaticResource Locator}}"
+             >
 
 
-    <local:JoystickView Title="Joystick"/>
+    <local:DataListView Title="Data"/>
+    <local:JoystickView Title="Stick"/>
     <local:TPHView Title="Graphs"/>
     <local:LedView Title="LED"/>
-    <local:SettingsView Title="Settings"/>
+    <local:SettingsView Title="Config"/>
 
 </TabbedPage>

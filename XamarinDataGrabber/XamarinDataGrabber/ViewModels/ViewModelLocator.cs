@@ -45,5 +45,12 @@ namespace XamarinDataGrabber.ViewModels
                 return ServiceLocator.Current.GetInstance<JoystickViewModel>();
             }
         }
+
+        public DataListViewModel DataListViewModel {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<DataListViewModel>();
+            }
+        }
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace XamarinDataGrabber.Services
+namespace XamarinDataGrabber.Helpers
 {
     public static class DimensionsConverter
     {

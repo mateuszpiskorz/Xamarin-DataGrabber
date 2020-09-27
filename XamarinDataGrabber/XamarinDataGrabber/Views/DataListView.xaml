@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="XamarinDataGrabber.Views.DataListView"
+             BindingContext="{Binding DataListViewModel, Source={StaticResource Locator}}">
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.ColumnSpan="2" 
+               Grid.Row="0" 
+               Text="Data List"
+               HorizontalOptions="Center"
+               FontAttributes="Bold"
+               FontSize="Large"/>
+        
+        <Button Grid.Column="0"
+                Grid.Row="1"
+                Text="Start"
+                Command="{Binding StartCommand}"/>
+
+        <Button Grid.Column="1"
+                Grid.Row="1"
+                Text="Stop"
+                Command="{Binding StopCommand}"/>
+
+        <Grid Grid.ColumnSpan="2"
+              Grid.Row="2"
+              Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0"
+                   Text="Name"
+                   FontAttributes="Bold"
+                   HorizontalTextAlignment="Center"/>
+            <Label Grid.Column="1"
+                   Text="Value"
+                   FontAttributes="Bold"
+                   HorizontalTextAlignment="Center"/>
+            <Label Grid.Column="2"
+                   Text="Unit"
+                   FontAttributes="Bold"
+                   HorizontalTextAlignment="Center"/>
+        </Grid>
+
+        <ListView Grid.Row="3" Grid.ColumnSpan="2" ItemsSource="{Binding DataList}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell >
+                        <Grid Margin="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Text="{Binding Name}"
+                                   Grid.Column="0"
+                                   HorizontalTextAlignment="Center"/>
+                            <Label Text="{Binding Value}"
+                                   Grid.Column="1"
+                                   HorizontalTextAlignment="Center"/>
+                            <Label Text="{Binding Unit}"
+                                   Grid.Column="2"
+                                   HorizontalTextAlignment="Center"/>
+                        </Grid>
+                        <ViewCell.ContextActions>
+                            <MenuItem Text="test"></MenuItem>
+                        </ViewCell.ContextActions>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</ContentPage>

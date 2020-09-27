@@ -9,6 +9,7 @@ using XamarinDataGrabber.Interfaces;
 using XamarinDataGrabber.Models;
 using XamarinDataGrabber.Services;
 using XamarinDataGrabber.Enums;
+using XamarinDataGrabber.Helpers;
 
 namespace XamarinDataGrabber.ViewModels
 {
@@ -19,7 +20,7 @@ namespace XamarinDataGrabber.ViewModels
         private IList<ILedConfiguration> _ledMatrix;
         private IServerService _server;
         private Color _currentColor;
-        private byte _rBrush, _gBrush, _bBrush;
+        private double _rBrush, _gBrush, _bBrush;
         #endregion
         #region Properties
 
@@ -38,17 +39,30 @@ namespace XamarinDataGrabber.ViewModels
         public string RBrush
         {   get
             {
-                return _rBrush.ToString();
+                return (_rBrush * 255).ToString();
             }
             set
             {
-                if (Byte.TryParse(value, out byte byteValue))
+                if (double.TryParse(value, out double temp))
                 {
-                    if (_rBrush != byteValue)
+                    double doubleVal = temp / 255;
+                    if (_rBrush != doubleVal)
                     {
-                        _rBrush = byteValue;
+                        if (doubleVal > 1)
+                        {
+                            _rBrush = 1;
+                        }
+                        else if (doubleVal < 0)
+                        {
+                            _rBrush = 0;
+                        }
+                        else
+                        {
+                            _rBrush = doubleVal;
+                        }
+                        
                         CurrentColor = Color.FromRgba(_rBrush, _gBrush, _bBrush, DefaultParams.defaultLedColorAlpha);
-                        OnPropertyChanged("RBursh");
+                        OnPropertyChanged("RBrush");
                     }
                 }
             }
@@ -58,17 +72,30 @@ namespace XamarinDataGrabber.ViewModels
         {
             get
             {
-                return _gBrush.ToString();
+                return (_gBrush * 255).ToString();
             }
             set
             {
-                if (Byte.TryParse(value, out byte byteValue))
+                if (double.TryParse(value, out double temp))
                 {
-                    if (_gBrush != byteValue)
+                    double doubleVal = temp / 255;
+                    if (_gBrush != doubleVal)
                     {
-                        _gBrush = byteValue;
-                        CurrentColor = Color.FromRgba(_rBrush, _gBrush, _bBrush,DefaultParams.defaultLedColorAlpha);
-                        OnPropertyChanged("GBursh");
+                        if (doubleVal > 1)
+                        {
+                            _gBrush = 1;
+                        }
+                        else if (doubleVal < 0)
+                        {
+                            _gBrush = 0;
+                        }
+                        else
+                        {
+                            _gBrush = doubleVal;
+                        }
+
+                        CurrentColor = Color.FromRgba(_rBrush, _gBrush, _bBrush, DefaultParams.defaultLedColorAlpha);
+                        OnPropertyChanged("GBrush");
                     }
                 }
             }
@@ -77,17 +104,30 @@ namespace XamarinDataGrabber.ViewModels
         {
             get
             {
-                return _bBrush.ToString();
+                return (_bBrush * 255).ToString();
             }
             set
             {
-                if (Byte.TryParse(value, out byte byteValue))
+                if (double.TryParse(value, out double temp))
                 {
-                    if (_bBrush != byteValue)
+                    double doubleVal = temp / 255;
+                    if (_bBrush != doubleVal)
                     {
-                        _bBrush = byteValue;
+                        if (doubleVal > 1)
+                        {
+                            _bBrush = 1;
+                        }
+                        else if (doubleVal < 0)
+                        {
+                            _bBrush = 0;
+                        }
+                        else
+                        {
+                            _bBrush = doubleVal;
+                        }
+
                         CurrentColor = Color.FromRgba(_rBrush, _gBrush, _bBrush, DefaultParams.defaultLedColorAlpha);
-                        OnPropertyChanged("BBursh");
+                        OnPropertyChanged("BBrush");
                     }
                 }
             }
@@ -198,6 +238,12 @@ namespace XamarinDataGrabber.ViewModels
                 led.B = DefaultParams.defaultLedColor[2];
 
             }
+
+            RBrush = DefaultParams.defaultLedColor[0].ToString();
+            GBrush = DefaultParams.defaultLedColor[1].ToString();
+            BBrush = DefaultParams.defaultLedColor[2].ToString();
+
+            SendData();
         }
         
 

@@ -4,6 +4,7 @@ using System.Text;
 using XamarinDataGrabber.Enums;
 using Newtonsoft.Json;
 using XamarinDataGrabber.Services;
+using XamarinDataGrabber.Helpers;
 
 namespace XamarinDataGrabber.Models
 {

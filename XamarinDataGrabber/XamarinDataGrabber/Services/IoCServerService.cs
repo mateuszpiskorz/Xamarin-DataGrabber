@@ -8,6 +8,8 @@ using XamarinDataGrabber.Interfaces;
 using XamarinDataGrabber.Enums;
 using Newtonsoft.Json;
 using XamarinDataGrabber.Models;
+using XamarinDataGrabber.Helpers;
+using Newtonsoft.Json;
 
 namespace XamarinDataGrabber.Services
 {
@@ -54,6 +56,7 @@ namespace XamarinDataGrabber.Services
                     var requestDataCollection = new FormUrlEncodedContent(GenerateKeyValuePair(data));
                     var responseMessage = await _client.PostAsync(GetServerUrl(requestType), requestDataCollection );
                     responseText = await responseMessage.Content.ReadAsStringAsync();
+                    Debug.WriteLine(responseText);
                     if (String.IsNullOrEmpty(responseText)) Debug.WriteLine("HTTP POST response text is null");    
             }
             catch (Exception e)
@@ -68,23 +71,22 @@ namespace XamarinDataGrabber.Services
         }
 
         //Method used to convert list of led configuraiton to keyvaluepair collection
-        private List<KeyValuePair<string, string>> GenerateKeyValuePair(IList<ILedConfiguration> data)
+        private Dictionary<string, string> GenerateKeyValuePair(IList<ILedConfiguration> data)
         {
-            List<KeyValuePair<string, string>> result = new List<KeyValuePair<string, string>>();
+            var jsonLed = JsonConvert.SerializeObject(GenerateIntArrayFromRgb(data));
+            return new Dictionary<string, string>() { {"ledData",jsonLed } };      
+        }
 
-            for (int i = 0; i <= 7; i++)
+        private int[] GenerateIntArrayFromRgb(IList<ILedConfiguration> data)
+        {
+            int[] temp = new int[64];
+            for (int i = 0; i <= data.Count - 1; i ++)
             {
-                for (int j = 0; j <= 7; j++)
-                {
-                    int[] pos = { i, j };
-                    byte[] color = { data[DimensionsConverter.ConvertDimensions(i, j)].R, data[DimensionsConverter.ConvertDimensions(i, j)].G, data[DimensionsConverter.ConvertDimensions(i, j)].B };
-
-                    result.Add(new KeyValuePair<string, string>(pos.ToString(), color.ToString()));
-                    
-                }
+                int rgbVal = ((data[i].R & 0x00ff) << 16) | ((data[i].G & 0x00ff) << 8) | (data[i].B & 0x00ff);
+                temp[i] = rgbVal;
             }
 
-            return result;
+            return temp;
         }
 
         //Method providing url for HTTP request taking in account wanted request type
